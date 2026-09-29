@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmio | Hypertension — ER2020 D.Pharm Pharmacotherapy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #0B2545;
+            --secondary-navy: #134074;
+            --teal-accent: #00A896;
+            --mint-green: #02C39A;
+            --bright-green: #00E676;
+            --bg-light: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --shadow: 0 10px 25px -5px rgba(11, 37, 69, 0.08), 0 8px 10px -6px rgba(11, 37, 69, 0.04);
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* HEADER & NAVBAR */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            border-bottom: 2px solid #E2E8F0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .brand-logo-img {
+            height: 55px;
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.2s ease;
+        }
+
+        .brand-logo-img:hover {
+            transform: scale(1.03);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--teal-accent);
+        }
+
+        .badge-er2020 {
+            background: linear-gradient(135deg, var(--teal-accent), var(--mint-green));
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-navy) 100%);
+            color: white;
+            padding: 60px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 168, 150, 0.15);
+            border-radius: 50%;
+            filter: blur(50px);
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #CBD5E1;
+            max-width: 700px;
+            margin: 0 auto 24px auto;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+
+        /* CARD STYLES */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+            border: 1px solid #E2E8F0;
+            margin-bottom: 30px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -5px rgba(11, 37, 69, 0.12);
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #F1F5F9;
+            padding-bottom: 10px;
+        }
+
+        .section-title i {
+            color: var(--teal-accent);
+        }
+
+        /* INTERACTIVE BP CALCULATOR TOOL */
+        .calculator-box {
+            background: linear-gradient(135deg, #F0FDF4, #E6F4F1);
+            border: 2px dashed var(--teal-accent);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            flex: 1;
+        }
+
+        .input-field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 6px;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #CBD5E1;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-field input:focus {
+            border-color: var(--teal-accent);
+        }
+
+        .btn-calc {
+            background: var(--teal-accent);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-calc:hover {
+            background: #00897B;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 700;
+            display: none;
+        }
+
+        /* CLASSIFICATION TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #F1F5F9;
+            color: var(--primary-navy);
+            font-weight: 700;
+        }
+
+        .status-tag {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .status-normal { background: #DCFCE7; color: #166534; }
+        .status-elevated { background: #FEF9C3; color: #854D0E; }
+        .status-stage1 { background: #FFEDD5; color: #C2410C; }
+        .status-stage2 { background: #FEE2E2; color: #991B1B; }
+
+        /* RAAS PATHOPHYSIOLOGY DIAGRAM */
+        .raas-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .raas-step {
+            background: #F8FAFC;
+            border-left: 4px solid var(--teal-accent);
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+
+        .raas-step strong {
+            color: var(--primary-navy);
+        }
+
+        /* DRUG CLASS ACCORDION / TABS */
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: #E2E8F0;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--text-dark);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-navy);
+            color: white;
+        }
+
+        .drug-content {
+            display: none;
+        }
+
+        .drug-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .drug-card {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 12px;
+        }
+
+        .drug-card h4 {
+            color: var(--teal-accent);
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .exam-pearl {
+            background: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            color: #1E40AF;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* QUIZ WIDGET */
+        .quiz-container {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .quiz-option {
+            background: white;
+            border: 2px solid #E2E8F0;
+            padding: 12px;
+            border-radius: 10px;
+            margin: 8px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--teal-accent);
+            background: #F0FDF4;
+        }
+
+        .quiz-option.correct {
+            background: #DCFCE7;
+            border-color: #22C55E;
+            color: #15803D;
+        }
+
+        .quiz-option.wrong {
+            background: #FEE2E2;
+            border-color: #EF4444;
+            color: #B91C1C;
+        }
+
+        footer {
+            background: var(--primary-navy);
+            color: white;
+            text-align: center;
+            padding: 40px 24px;
+            margin-top: 60px;
+        }
+
+        .footer-logo {
+            height: 65px;
+            margin-bottom: 12px;
+            filter: brightness(0) invert(1);
+            opacity: 0.95;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="brand-logo">
+                <img src="https://i.postimg.cc/76YwP40s/IMG-20260926-WA0003.png" alt="Pharmio - Learn. Note. Grow." class="brand-logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#patho">Pathophysiology</a></li>
+                <li><a href="#drugs">Pharmacology</a></li>
+                <li><a href="#counseling">Counseling</a></li>
+                <li><a href="#quiz">Exam Quiz</a></li>
+            </ul>
+            <span class="badge-er2020"><i class="fa-solid fa-graduation-cap"></i> ER2020 Syllabus</span>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1>Hypertension (High Blood Pressure)</h1>
+        <p>Master Etiology, Pathophysiology, Pharmacotherapy & Patient Counseling for D.Pharm (ER2020) Exams.</p>
+    </section>
+
+    <div class="container">
+
+        <!-- SECTION 1: OVERVIEW & CLASSIFICATION -->
+        <div class="grid-2">
+            <div class="card" id="overview">
+                <h2 class="section-title"><i class="fa-solid fa-heart-pulse"></i> What is Hypertension?</h2>
+                <p style="margin-bottom: 12px;"><strong>Hypertension (HTN)</strong> is a chronic medical condition where the systemic arterial blood pressure is persistently elevated. It forces the heart to pump harder than normal to circulate blood through blood vessels.</p>
+                <p style="margin-bottom: 15px; color: var(--text-muted); font-size: 14px;">Known as the <strong>"Silent Killer"</strong> because it often presents zero initial symptoms while silently damaging target organs like the heart, kidneys, brain, and eyes.</p>
+                
+                <h4 style="margin-bottom: 10px; color: var(--primary-navy);">JNC-8 & ISH BP Classification</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Systolic (mmHg)</th>
+                            <th>Diastolic (mmHg)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="status-tag status-normal">Normal</span></td>
+                            <td>&lt; 120</td>
+                            <td>and &lt; 80</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-tag status-elevated">Elevated</span></td>
+                            <td>120 – 129</td>
+                            <td>and &lt; 80</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-tag status-stage1">Stage 1 HTN</span></td>
+                            <td>130 – 139</td>
+                            <td>or 80 – 89</td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-tag status-stage2">Stage 2 HTN</span></td>
+                            <td>&ge; 140</td>
+                            <td>or &ge; 90</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- INTERACTIVE BP CHECKER TOOL -->
+            <div class="card">
+                <h2 class="section-title"><i class="fa-solid fa-calculator"></i> Interactive BP Checker</h2>
+                <p style="margin-bottom: 15px; font-size: 14px; color: var(--text-muted);">Test your understanding of classification with this instant clinical evaluator.</p>
+                
+                <div class="calculator-box">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label for="sys">Systolic (Top)</label>
+                            <input type="number" id="sys" placeholder="e.g. 135" value="135">
+                        </div>
+                        <div class="input-field">
+                            <label for="dia">Diastolic (Bottom)</label>
+                            <input type="number" id="dia" placeholder="e.g. 85" value="85">
+                        </div>
+                    </div>
+                    <button class="btn-calc" onclick="checkBP()">Evaluate BP Status</button>
+                    <div id="bp-result" class="result-box"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: ETIOLOGY & PATHOPHYSIOLOGY -->
+        <div class="card" id="patho">
+            <h2 class="section-title"><i class="fa-solid fa-diagram-project"></i> Etiology & Pathophysiology (RAAS Mechanism)</h2>
+            <div class="grid-2">
+                <div>
+                    <h3 style="color: var(--secondary-navy); margin-bottom: 10px;">Types & Causes</h3>
+                    <ul style="padding-left: 20px; font-size: 14px; color: var(--text-dark);">
+                        <li style="margin-bottom: 8px;"><strong>Primary (Essential) HTN (~90-95%):</strong> Unknown exact cause. Linked to genetics, obesity, excess salt intake, age, stress, and lack of exercise.</li>
+                        <li style="margin-bottom: 8px;"><strong>Secondary HTN (5-10%):</strong> Secondary to underlying conditions like Chronic Kidney Disease (CKD), Renal Artery Stenosis, Cushing's syndrome, or drugs (NSAIDs, Oral Contraceptives).</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 style="color: var(--secondary-navy); margin-bottom: 10px;">The RAAS Axis Breakdown</h3>
+                    <div class="raas-flow">
+                        <div class="raas-step">
+                            <strong>1. Kidney Secretion:</strong> Decreased renal perfusion triggers <strong>Renin</strong> release from Juxtaglomerular (JG) cells.
+                        </div>
+                        <div class="raas-step">
+                            <strong>2. Angiotensinogen Conversion:</strong> Renin converts Angiotensinogen (liver) to <strong>Angiotensin I</strong>.
+                        </div>
+                        <div class="raas-step">
+                            <strong>3. ACE Action:</strong> ACE (Lungs) converts Angiotensin I into <strong>Angiotensin II</strong> (Potent Vasoconstrictor).
+                        </div>
+                        <div class="raas-step">
+                            <strong>4. Aldosterone & BP Rise:</strong> Angiotensin II triggers <strong>Aldosterone</strong> release &rarr; Sodium & Water Retention &rarr; High Blood Pressure!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: PHARMACOLOGICAL MANAGEMENT (DRUGS) -->
+        <div class="card" id="drugs">
+            <h2 class="section-title"><i class="fa-solid fa-capsules"></i> Pharmacological Management (Anti-Hypertensives)</h2>
+            <p style="margin-bottom: 15px; font-size: 14px; color: var(--text-muted);">Select a drug class below to study Mechanism of Action (MOA), key drugs, side effects, and D.Pharm exam notes:</p>
+
+            <!-- TABS -->
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showTab('ace')">ACE Inhibitors & ARBs</button>
+                <button class="tab-btn" onclick="showTab('diuretics')">Diuretics</button>
+                <button class="tab-btn" onclick="showTab('ccb')">Calcium Channel Blockers (CCB)</button>
+                <button class="tab-btn" onclick="showTab('beta')">Beta Blockers</button>
+            </div>
+
+            <!-- ACE & ARBs CONTENT -->
+            <div id="ace" class="drug-content active">
+                <div class="drug-card">
+                    <h4><span>1. ACE Inhibitors ("-pril" suffix)</span> <i class="fa-solid fa-prescription-bottle-medical"></i></h4>
+                    <p><strong>Examples:</strong> Enalapril, Captopril, Ramipril, Lisinopril</p>
+                    <p><strong>Mechanism of Action (MOA):</strong> Inhibits Angiotensin Converting Enzyme (ACE), blocking conversion of Angiotensin I to Angiotensin II. Decreases vasoconstriction & aldosterone release.</p>
+                    <p><strong>Adverse Effects:</strong> Dry Cough (due to Bradykinin accumulation), Hyperkalemia, Angioedema, Hypotension.</p>
+                    <div class="exam-pearl"><i class="fa-solid fa-lightbulb"></i> <strong>Exam Pearl:</strong> Contraindicated in Pregnancy (Teratogenic)! Dry cough is a classic board exam question.</div>
+                </div>
+
+                <div class="drug-card">
+                    <h4><span>2. ARBs - Angiotensin Receptor Blockers ("-sartan")</span> <i class="fa-solid fa-shield-halved"></i></h4>
+                    <p><strong>Examples:</strong> Losartan, Telmisartan, Valsartan</p>
+                    <p><strong>MOA:</strong> Selectively blocks AT<sub>1</sub> receptors. Prevents Angiotensin II binding directly without affecting Bradykinin levels.</p>
+                    <p><strong>Adverse Effects:</strong> Hyperkalemia, Dizziness, Renal function changes (No dry cough!).</p>
+                </div>
+            </div>
+
+            <!-- DIURETICS CONTENT -->
+            <div id="diuretics" class="drug-content">
+                <div class="drug-card">
+                    <h4><span>1. Thiazide Diuretics</span></h4>
+                    <p><strong>Examples:</strong> Hydrochlorothiazide (HCTZ), Chlorthalidone, Indapamide</p>
+                    <p><strong>MOA:</strong> Inhibits Na<sup>+</sup> / Cl<sup>-</sup> cotransporter in early Distal Convoluted Tubule (DCT) &rarr; increases water and salt excretion.</p>
+                    <p><strong>Adverse Effects:</strong> Hypokalemia (Low K<sup>+</sup>), Hyperuricemia (Gout risk), Hyperglycemia.</p>
+                </div>
+                <div class="drug-card">
+                    <h4><span>2. Loop Diuretics & Potassium-Sparing</span></h4>
+                    <p><strong>Loop:</strong> Furosemide (Lasix), Torsemide (Acts on Thick Ascending Loop of Henle — high potency).</p>
+                    <p><strong>K+ Sparing:</strong> Spironolactone (Aldosterone antagonist), Amiloride.</p>
+                </div>
+            </div>
+
+            <!-- CCB CONTENT -->
+            <div id="ccb" class="drug-content">
+                <div class="drug-card">
+                    <h4><span>Calcium Channel Blockers (CCBs)</span></h4>
+                    <p><strong>Dihydropyridines (Vascular selective):</strong> Amlodipine, Nifedipine &rarr; Cause smooth muscle relaxation/vasodilation.</p>
+                    <p><strong>Non-Dihydropyridines (Cardiac selective):</strong> Verapamil, Diltiazem &rarr; Reduce heart rate and myocardial contractility.</p>
+                    <p><strong>Adverse Effects:</strong> Ankle Edema (peripheral swelling with Amlodipine), Headache, Flushing, Constipation (Verapamil).</p>
+                </div>
+            </div>
+
+            <!-- BETA BLOCKERS CONTENT -->
+            <div id="beta" class="drug-content">
+                <div class="drug-card">
+                    <h4><span>Beta-Adrenergic Blockers ("-olol")</span></h4>
+                    <p><strong>Examples:</strong> Atenolol, Metoprolol (Beta-1 Selective), Propranolol (Non-selective).</p>
+                    <p><strong>MOA:</strong> Blocks &beta;<sub>1</sub> receptors on myocardium &rarr; decreases heart rate (HR) and cardiac output (CO). Also decreases renin release.</p>
+                    <p><strong>Adverse Effects:</strong> Bradycardia, Fatigue, Bronchospasm (Avoid non-selective &beta;-blockers in Asthma!).</p>
+                    <div class="exam-pearl"><i class="fa-solid fa-triangle-exclamation"></i> <strong>Warning:</strong> Never stop Beta-blockers abruptly due to rebound hypertension risk!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: NON-PHARMACOLOGICAL & PATIENT COUNSELING -->
+        <div class="grid-2" id="counseling">
+            <div class="card">
+                <h2 class="section-title"><i class="fa-solid fa-apple-whole"></i> Non-Pharmacological (Lifestyle)</h2>
+                <ul style="padding-left: 20px; font-size: 14px;">
+                    <li style="margin-bottom: 10px;"><strong>Salt Restriction:</strong> Limit sodium intake to &lt; 2.0g/day (&lt; 5g NaCl).</li>
+                    <li style="margin-bottom: 10px;"><strong>DASH Diet:</strong> Dietary Approaches to Stop Hypertension (Rich in fruits, vegetables, potassium, low saturated fat).</li>
+                    <li style="margin-bottom: 10px;"><strong>Weight Management:</strong> Maintain BMI between 18.5 – 24.9 kg/m².</li>
+                    <li style="margin-bottom: 10px;"><strong>Exercise:</strong> At least 150 mins/week of moderate aerobic exercise.</li>
+                    <li><strong>Avoid Tobacco & Excessive Alcohol.</strong></li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2 class="section-title"><i class="fa-solid fa-user-doctor"></i> Patient Counseling (Pharmacist Role)</h2>
+                <ul style="padding-left: 20px; font-size: 14px;">
+                    <li style="margin-bottom: 10px;"><strong>Adherence Importance:</strong> Educate that medications must be taken daily, even when asymptomatic.</li>
+                    <li style="margin-bottom: 10px;"><strong>Timing Guidance:</strong> Take diuretics in the morning to prevent nocturnal urination (nycturia).</li>
+                    <li style="margin-bottom: 10px;"><strong>OTC Caution:</strong> Warn against self-medication with NSAIDs (Ibuprofen, Diclofenac) or decongestants as they elevate BP.</li>
+                    <li><strong>Home Monitoring:</strong> Instruct on proper technique for self-monitoring blood pressure logs.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 5: INTERACTIVE ER2020 EXAM QUIZ -->
+        <div class="card" id="quiz">
+            <h2 class="section-title"><i class="fa-solid fa-circle-question"></i> D.Pharm ER2020 Quick Revision Quiz</h2>
+            <div class="quiz-container">
+                <p id="quiz-question" style="font-size: 16px; font-weight: 700; margin-bottom: 15px;">1. Which side effect is specifically associated with ACE inhibitors like Enalapril due to Bradykinin accumulation?</p>
+                <div id="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">A. Ankle Edema</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, true)">B. Dry Persistent Cough</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">C. Hypokalemia</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, false)">D. Constipation</div>
+                </div>
+                <div id="quiz-feedback" style="margin-top: 15px; font-weight: 700; display: none;"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <img src="https://i.postimg.cc/76YwP40s/IMG-20260926-WA0003.png" alt="Pharmio Logo" class="footer-logo">
+        <p style="font-size: 13px; color: #94A3B8;">Designed for D.Pharm ER2020 Students | Pharmacotherapeutics & Pharmacology Study Module</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // BP Calculator Functionality
+        function checkBP() {
+            const sys = parseInt(document.getElementById('sys').value);
+            const dia = parseInt(document.getElementById('dia').value);
+            const resultBox = document.getElementById('bp-result');
+
+            if (isNaN(sys) || isNaN(dia)) {
+                resultBox.style.display = 'block';
+                resultBox.style.background = '#FEE2E2';
+                resultBox.style.color = '#991B1B';
+                resultBox.innerHTML = 'Please enter valid numbers for both pressures!';
+                return;
+            }
+
+            resultBox.style.display = 'block';
+
+            if (sys < 120 && dia < 80) {
+                resultBox.style.background = '#DCFCE7';
+                resultBox.style.color = '#166534';
+                resultBox.innerHTML = `Result: NORMAL BLOOD PRESSURE (${sys}/${dia} mmHg)`;
+            } else if (sys >= 120 && sys <= 129 && dia < 80) {
+                resultBox.style.background = '#FEF9C3';
+                resultBox.style.color = '#854D0E';
+                resultBox.innerHTML = `Result: ELEVATED BLOOD PRESSURE (${sys}/${dia} mmHg)`;
+            } else if ((sys >= 130 && sys <= 139) || (dia >= 80 && dia <= 89)) {
+                resultBox.style.background = '#FFEDD5';
+                resultBox.style.color = '#C2410C';
+                resultBox.innerHTML = `Result: STAGE 1 HYPERTENSION (${sys}/${dia} mmHg)`;
+            } else if (sys >= 140 || dia >= 90) {
+                resultBox.style.background = '#FEE2E2';
+                resultBox.style.color = '#991B1B';
+                resultBox.innerHTML = `Result: STAGE 2 HYPERTENSION (${sys}/${dia} mmHg)`;
+            }
+        }
+
+        // Tab Switcher Functionality
+        function showTab(tabId) {
+            document.querySelectorAll('.drug-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Quiz Interactive Check
+        function checkAnswer(element, isCorrect) {
+            const feedback = document.getElementById('quiz-feedback');
+            const options = document.querySelectorAll('.quiz-option');
+
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+
+            if (isCorrect) {
+                element.classList.add('correct');
+                feedback.style.display = 'block';
+                feedback.style.color = '#166534';
+                feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> Correct! ACE Inhibitors increase bradykinin levels causing dry cough. ARBs are preferred if dry cough occurs.';
+            } else {
+                element.classList.add('wrong');
+                feedback.style.display = 'block';
+                feedback.style.color = '#991B1B';
+                feedback.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Incorrect. The correct answer is B (Dry Persistent Cough).';
+            }
+        }
+    </script>
+</body>
+</html>
